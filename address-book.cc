@@ -14,12 +14,82 @@ class User
 
 };
 
-void listAllContacts(User address_book[], int &count)
+void updateContact(User address_book[], int &count)
 {
-    cout << "count=" << count << endl;
+    cout << "Which contact would you like to update? Please enter the name" << endl;
+    string name_current;
+    cin >> name_current; //input name you want to update
+
+    bool matchFound = false;
+
     for (int i = 0; i < count; i++)
     {
-        cout << "User: " << count << endl;
+        
+        if (name_current == address_book[i].name)
+        {
+            cout << "Is the user you want to update " << address_book[i].name << "?" << endl;
+            cout << "What is the updated name of " << address_book[i].name << "?" << endl;
+            string name_temp;
+            cin >> name_temp;
+            
+
+            cout << "What is the updated number?" << endl;
+            string phone_temp;
+            cin >> phone_temp;
+
+            cout << "What is the updated address?" << endl;
+            string address_temp;
+            cin >> address_temp;
+
+            //update entries
+            address_book[i].name = name_temp;
+            address_book[i].phone = phone_temp;
+            address_book[i].address = address_temp;
+
+            matchFound = true;
+        }
+    }
+    if (!matchFound)
+    {
+        cout << "There was no match for that entry" << endl;
+    }
+}
+
+void searchContact(User address_book[], int &count)
+{
+    bool matchFound = false;
+
+    cout << "What is the full name of the user you are searching for?" << endl;
+
+    string findName;
+    cin.ignore(); 
+    getline(cin, findName);
+
+    for (int i = 0; i < count; i++)
+    {
+        if (address_book[i].name == findName)
+        {
+            cout << "Here is the user's information" << endl;
+            cout << address_book[i].name << endl;
+            cout << address_book[i].phone << endl;
+            cout << address_book[i].address << endl;
+
+            matchFound = true;
+        }
+    }
+
+    if (!matchFound)
+    {
+        cout << "There was no match for that entry" << endl;
+    }
+
+}
+
+void listAllContacts(User address_book[], int &count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        cout << "User: " << i+1 << endl;
         cout << "Name: " << address_book[i].name << endl;
         cout << "Phone: " << address_book[i].phone << endl;
         cout << "Address: " << address_book[i].address << endl << endl;
@@ -32,11 +102,14 @@ void addEntry(User address_book[], int &count)
     string name, phone, address;
 
     cout << "Add the name of the user:" << endl;
-    cin >> name;
+    cin.ignore(); 
+    getline(cin, name);
     cout << "Add the phone of the user:" << endl;
-    cin >> phone;
+    cin.ignore(); 
+    getline(cin, phone);
     cout << "Add the address of the user:" << endl;
-    cin >> address;
+    cin.ignore(); 
+    getline(cin, address);
 
     // create instance of class user
     User newUser;
@@ -89,9 +162,17 @@ int main(){
         {
             addEntry(address_book, count);
         } 
+        else if (menu_choice == 2)
+        {
+            updateContact(address_book, count);
+        }
         else if (menu_choice == 4)
         {
             listAllContacts(address_book, count);
+        }
+        else if (menu_choice == 5)
+        {
+            searchContact(address_book, count);
         }
         else if (menu_choice == 6)
         {
