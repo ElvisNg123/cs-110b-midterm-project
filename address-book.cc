@@ -140,8 +140,6 @@ void displayMenu()
 }
 
 
-
-
 int main(){
 
     bool keepPlaying = true;
